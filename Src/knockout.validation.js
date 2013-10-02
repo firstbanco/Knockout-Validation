@@ -342,9 +342,9 @@
                 return result;
             },
 
-            formatMessage: function (message, params) {
+            formatMessage: function (message, params, observable) {
                 if (typeof (message) === 'function') {
-                    return message(params);
+                    return message(params, observable);
                 }
                 return message.replace(/\{0\}/gi, ko.utils.unwrapObservable(params));
             },
@@ -817,7 +817,7 @@
     };
 
     ko.bindingHandlers['validationElement'] = {
-        update: function (element, valueAccessor) {
+        update: function (element, valueAccessor, allBindingsAccessor) {
             var obsv = valueAccessor(),
                 config = utils.getConfigOptions(element),
                 val = ko.utils.unwrapObservable(obsv),
@@ -846,7 +846,7 @@
             };
 
             //add or remove class on the element;
-            ko.bindingHandlers.css.update(element, cssSettingsAccessor);
+            ko.bindingHandlers.css.update(element, cssSettingsAccessor, allBindingsAccessor);
             if (!config.errorsAsTitle) { return; }
             
 			var origTitle = utils.getAttribute(element, 'data-orig-title'),
@@ -1007,7 +1007,7 @@
         if (!rule.validator(observable(), ctx.params === undefined ? true : ctx.params)) { // default param is true, eg. required = true
 
             //not valid, so format the error message and stick it in the 'error' variable
-            observable.error(exports.formatMessage(ctx.message || rule.message, ctx.params));
+            observable.error(exports.formatMessage(ctx.message || rule.message, ctx.params, observable));
             observable.__valid__(false);
             observable.errorRule(rule);
             return false;
@@ -1041,7 +1041,7 @@
 
             if (!isValid) {
                 //not valid, so format the error message and stick it in the 'error' variable
-                observable.error(exports.formatMessage(msg || ctx.message || rule.message, ctx.params));
+                observable.error(exports.formatMessage(msg || ctx.message || rule.message, ctx.params, observable));
                 observable.__valid__(isValid);
             }
 
