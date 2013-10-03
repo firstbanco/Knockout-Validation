@@ -333,12 +333,6 @@
                     return invalidAndModifiedPresent;
                 };
 
-                obj.getValidatables = function () {
-                    // Force a traverse
-                    obj.errors();
-                    return validatables;
-                };
-
                 return result;
             },
 
