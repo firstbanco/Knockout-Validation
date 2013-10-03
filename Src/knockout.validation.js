@@ -1,4 +1,40 @@
 /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This is taken from a branch of the real Knockout Validation library on git hub. If this file is changed, be sure to change the master on our branch,
+ and submit it as pull requests to the main project.
+
+The changes so far (as can be seen on our fork) include minor changes to pass around extra parameters to make showing errors a bit easier.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
+/*
 ===============================================================================
     Author:     Eric M. Barnard - @ericmbarnard                                
     License:    MIT (http://opensource.org/licenses/mit-license.php)           
